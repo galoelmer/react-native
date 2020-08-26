@@ -24,7 +24,7 @@ export default function AddTodo({ submitHandler }) {
       <View style={styles.button}>
         <Button
           title="Add Todo"
-          color={Platform.OS === 'ios' ? '#fff' : '#50d0ff'}
+          color={Platform.OS === 'ios' ? '#fff' : '#ffd650'}
           onPress={handleSubmit}
         />
       </View>

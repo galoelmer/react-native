@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
+  Text,
   FlatList,
-  SafeAreaView,
   Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
@@ -25,6 +26,30 @@ export default function App() {
     {
       key: '3',
       text: 'Fugiat veniam minus',
+    },
+    {
+      key: '4',
+      text: 'Lorem ipsum dolor sit',
+    },
+    {
+      key: '5',
+      text: 'Fugiat veniam minus',
+    },
+    {
+      key: '6',
+      text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+    },
+    {
+      key: '7',
+      text: 'Lorem, ipsum dolor',
+    },
+    {
+      key: '8',
+      text: 'Lorem ipsum dolor sit amet',
+    },
+    {
+      key: '9',
+      text: 'Lorem ipsum dolor sit amet consectetus',
     },
   ]);
 
@@ -50,32 +75,54 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.content}>
-        <AddTodo submitHandler={submitHandler} />
-        <View style={styles.list}>
-          <FlatList
-            data={todos}
-            renderItem={({ item }) => (
-              <TodoItem item={item} pressHandler={pressHandler} />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Header />
+        <View style={styles.content}>
+          <AddTodo submitHandler={submitHandler} />
+          <View style={styles.list}>
+            {todos.length ? (
+              <FlatList
+                data={todos}
+                renderItem={({ item }) => (
+                  <TodoItem item={item} pressHandler={pressHandler} />
+                )}
+              />
+            ) : (
+              <Text style={styles.noTodosItem}> Todo's list is empty </Text>
             )}
-          />
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F5F6FA',
   },
   content: {
     padding: 40,
+    paddingBottom: 10,
+    flex: 1,
   },
   list: {
     marginTop: 20,
+    flex: 1,
+  },
+  noTodosItem: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 80,
+    color: '#b8bec5',
+    textShadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    textShadowColor: '#fff',
+    textShadowRadius: 2,
   },
 });
