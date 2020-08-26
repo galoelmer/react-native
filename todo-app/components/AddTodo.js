@@ -9,10 +9,8 @@ export default function AddTodo({ submitHandler }) {
   };
 
   const handleSubmit = () => {
-    if (text.length) {
-      submitHandler(text);
-      setText('');
-    }
+    submitHandler(text);
+    setText('');
   };
 
   return (
