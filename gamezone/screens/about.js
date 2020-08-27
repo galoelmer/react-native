@@ -1,36 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import Header from '../shared/Header';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function About({ navigation }) {
   return (
     <View>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>About</Text>
+      <View style={styles.headerContainer}>
+        <Header style={styles.header} navigation={navigation} title="About" />
       </View>
-
-      <View style={styles.button}>
-        <Button onPress={() => navigation.goBack()} title="Go back home" />
-      </View>
+      <Text style={styles.content}>About Content</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
+  headerContainer: {
     backgroundColor: '#003049',
     height: 90,
+    paddingTop: 20,
+    paddingLeft: 10,
   },
-  headerText: {
-    flex: 1,
-    color: '#fff',
-    paddingLeft: 20,
-    paddingBottom: 20,
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlignVertical: 'bottom',
-  },
-  button: {
-    marginTop: 30,
-    marginHorizontal: 50,
+  content: {
+    padding: 30,
   },
 });

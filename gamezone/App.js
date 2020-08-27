@@ -2,6 +2,7 @@ import React from 'react';
 import HomeScreen from './screens/home';
 import ReviewDetails from './screens/reviewDetails';
 import About from './screens/about';
+import Header from './shared/Header';
 import { StatusBar } from 'expo-status-bar';
 import { AppLoading } from 'expo';
 import { useFonts } from 'expo-font';
@@ -9,7 +10,6 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { getAppLoadingLifecycleEmitter } from 'expo/build/launch/AppLoading';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -19,9 +19,9 @@ const HomeStack = () => (
     <Stack.Screen
       name="Home"
       component={HomeScreen}
-      options={{
-        title: 'MovieZone',
-      }}
+      options={({ navigation }) => ({
+        headerTitle: () => <Header navigation={navigation} title="MovieZone" />,
+      })}
     />
     <Stack.Screen
       name="Details"
