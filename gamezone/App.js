@@ -14,6 +14,17 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+const screenOptions = {
+  headerStyle: {
+    backgroundColor: '#003049',
+    height: 90,
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+};
+
 const HomeStack = () => (
   <Stack.Navigator initialRouteName="Home" screenOptions={screenOptions}>
     <Stack.Screen
@@ -30,17 +41,6 @@ const HomeStack = () => (
     />
   </Stack.Navigator>
 );
-
-const screenOptions = {
-  headerStyle: {
-    backgroundColor: '#003049',
-    height: 90,
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
-};
 
 export default function App() {
   let [fontsLoaded] = useFonts({
