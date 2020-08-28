@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { Text, View, FlatList, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  TouchableHighlight,
+  Modal,
+  ScrollView,
+} from 'react-native';
 import { globalStyles } from '../styles/globals';
 import Card from '../shared/Card';
 import BackgroundContainer from '../shared/Background';
+import ReviewForm from '../screens/reviewForm';
 
 export default function Home({ navigation }) {
   // Mock data
@@ -30,9 +40,49 @@ export default function Home({ navigation }) {
     },
   ]);
 
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const addReview = (values) => {
+    setReviews((currentReviews) => {
+      values.key = Math.random().toString();
+      return [values, ...currentReviews];
+    });
+    setModalVisible(false);
+  };
   return (
     <BackgroundContainer>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.title}>Create Review</Text>
+            <TouchableHighlight
+              style={{ ...styles.closeButton }}
+              underlayColor="#fff"
+              activeOpacity={0.5}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <Text style={styles.textCloseButton}>X</Text>
+            </TouchableHighlight>
+            <ScrollView>
+              <ReviewForm addReview={addReview} />
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Home Screen Container*/}
       <View style={globalStyles.container}>
+        {/* Add movie Button */}
+        <TouchableHighlight
+          style={styles.openButton}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.textStyle}>Add Movie</Text>
+        </TouchableHighlight>
+
+        {/* Movies' List */}
         <FlatList
           data={reviews}
           renderItem={({ item }) => (
@@ -49,3 +99,63 @@ export default function Home({ navigation }) {
     </BackgroundContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 75,
+  },
+  modalView: {
+    width: 380,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    paddingTop: 40,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  openButton: {
+    backgroundColor: '#1cb995',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    marginBottom: 10,
+    width: 160,
+    alignSelf: 'center',
+  },
+  closeButton: {
+    height: 30,
+    width: 30,
+    position: 'absolute',
+    right: 5,
+    top: 5,
+  },
+  textCloseButton: {
+    color: '#E44E59',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 20,
+    lineHeight: 30,
+  },
+  textStyle: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 16,
+    lineHeight: 30,
+  },
+  title: {
+    alignSelf: 'flex-start',
+    paddingLeft: 40,
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: -20,
+  },
+});
