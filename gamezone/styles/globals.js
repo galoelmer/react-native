@@ -8,7 +8,7 @@ export const globalStyles = StyleSheet.create({
   titleText: {
     fontFamily: 'Nunito',
     fontSize: 18,
-    color: '#333',
+    color: '#fff',
   },
   paragraph: {
     marginVertical: 8,

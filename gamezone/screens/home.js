@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { globalStyles } from '../styles/globals';
-import Card from '../shared/card';
+import Card from '../shared/Card';
+import BackgroundContainer from '../shared/Background';
 
 export default function Home({ navigation }) {
   // Mock data
@@ -28,20 +29,23 @@ export default function Home({ navigation }) {
       key: '3',
     },
   ]);
+
   return (
-    <View style={globalStyles.container}>
-      <FlatList
-        data={reviews}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Details', item)}
-          >
-            <Card>
-              <Text style={globalStyles.titleText}>{item.title}</Text>
-            </Card>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+    <BackgroundContainer>
+      <View style={globalStyles.container}>
+        <FlatList
+          data={reviews}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Details', item)}
+            >
+              <Card>
+                <Text style={globalStyles.titleText}>{item.title}</Text>
+              </Card>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    </BackgroundContainer>
   );
 }
